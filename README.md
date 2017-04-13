@@ -3,7 +3,7 @@ This package enables you to query multi.surbl.org with a URL and determine if th
 ## Installation
 Composer
 ```
-$ composer install ampersa\surbl
+$ composer require ampersa\surbl
 ```
 
 ## Usage
