@@ -41,21 +41,17 @@ class SURBL
         // Retrieve the root domain name from the URL
         $parsedUrl = $this->extractDomainFromUrl($url);
 
+        // If there's no domain, simply return negative
+        if (empty($parsedUrl)) {
+            return false;
+        }
+
         // Get the result from surbl.org via DNS lookup
         $result = gethostbyname(sprintf(self::LOOKUP_URL, $parsedUrl));
 
-        // If there's no domain, simply return negative
-        if (empty($result)) {
-            return false;
-        }
-
         // gethostbyname() returns the input on NXDOMAIN, so return negative
-        if ($result == $parsedUrl) {
-            return false;
-        }
-
-        // If the returned data is not an IP address, return negative
-        if (!$this->validateIpAddress($result)) {
+        // Otherwise, if returned data is not a valid 127.x.x.x IP, return negative
+        if ($result == sprintf(self::LOOKUP_URL, $parsedUrl) or !$this->validateIpAddress($result)) {
             return false;
         }
 
@@ -95,10 +91,6 @@ class SURBL
     protected function checkResult(string $result) : bool
     {
         $lastOctet = explode('.', $result)[3];
-
-        if (!$lastOctet or empty($lastOctet)) {
-            return false;
-        }
 
         // Check for Phishing sites list
         if ($this->options & self::LIST_PH) {

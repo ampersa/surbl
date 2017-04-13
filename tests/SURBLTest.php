@@ -47,6 +47,22 @@ class SURBLTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result);
     }
 
+    public function testUnlistedDomain()
+    {
+        $surbl = new SURBL;
+        $result = $surbl->listed('http://surbl.org/');
+
+        $this->assertFalse($result);
+    }
+
+    public function testNxDomain()
+    {
+        $surbl = new SURBL;
+        $result = $surbl->listed('http://surbl-does-not-exist.org/');
+
+        $this->assertFalse($result);
+    }
+
     public function testListedDomain()
     {
         $surbl = new SURBL;
@@ -59,6 +75,14 @@ class SURBLTest extends PHPUnit_Framework_TestCase
     {
         $surbl = new SURBL;
         $result = $surbl->listed('not a valid URL');
+
+        $this->assertFalse($result);
+    }
+
+    public function testEmptyUrlReturnFalse()
+    {
+        $surbl = new SURBL;
+        $result = $surbl->listed('');
 
         $this->assertFalse($result);
     }
