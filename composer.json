@@ -10,6 +10,7 @@
         }
     ],
     "require": {
+        "php": "^7.0",
         "league/uri": "^5.0"
     },
     "autoload": {
