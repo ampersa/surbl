@@ -1,0 +1,20 @@
+{
+    "name": "ampersa/surbl",
+    "description": "A package to easliy test links and URLs against surbl.org",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ampersa Ltd",
+            "email": "contact@ampersa.co.uk"
+        }
+    ],
+    "require": {
+        "league/uri": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ampersa\\SURBL\\": "src/"
+        }
+    }
+}
