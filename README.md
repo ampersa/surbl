@@ -3,13 +3,13 @@ This package enables you to query multi.surbl.org with a URL and determine if th
 ## Installation
 Composer
 ```
-$ composer require ampersa\surbl
+$ composer require ampersa/surbl
 ```
 
 ## Usage
 **Basic usage**  
 ```php
-use Ampers\SURBL\SURBL;
+use Ampersa\SURBL\SURBL;
 ...
 
 $surbl = new SURBL;
