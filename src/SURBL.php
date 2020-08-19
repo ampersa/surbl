@@ -2,8 +2,8 @@
 
 namespace Ampersa\SURBL;
 
-use League\Uri\Schemes\Http;
-use League\Uri\Components\Host;
+use League\Uri\Uri;
+use League\Uri\UriString;
 
 class SURBL
 {
@@ -61,15 +61,13 @@ class SURBL
     /**
      * Extract and return the domain from a URL using League\Uri
      * @param  string $url
-     * @return string
+     * @return string|null
      */
-    protected function extractDomainFromUrl(string $url) : string
+    protected function extractDomainFromUrl(string $url): ?string
     {
-        $uri = Http::createFromString($url);
+        $uri = Uri::createFromString($url);
 
-        $host = new Host($uri->getHost());
-
-        return $host->getRegisterableDomain();
+        return $uri->getHost();
     }
 
     /**

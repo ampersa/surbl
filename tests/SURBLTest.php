@@ -1,10 +1,11 @@
 <?php
 
 use Ampersa\SURBL\SURBL;
+use PHPUnit\Framework\TestCase;
 
-class SURBLTest extends PHPUnit_Framework_TestCase
+class SURBLTest extends TestCase
 {
-    public function testListedPassesOnTrue()
+    public function testListedPassesOnTrue(): void
     {
         $surbl = new SURBL;
         $result1 = $surbl->listed('127.0.0.8');
@@ -20,7 +21,7 @@ class SURBLTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result5);
     }
 
-    public function testListedPassesOnMultiple()
+    public function testListedPassesOnMultiple(): void
     {
         $surbl = new SURBL;
         $result = $surbl->listed('127.0.0.24');
@@ -28,7 +29,7 @@ class SURBLTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result);
     }
 
-    public function testListedValidatesWithOptions()
+    public function testListedValidatesWithOptions(): void
     {
         $surbl1 = new SURBL(SURBL::LIST_PH);
         $surbl2 = new SURBL(SURBL::LIST_PH | SURBL::LIST_MW);
@@ -40,14 +41,14 @@ class SURBLTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result2);
     }
 
-    public function testCanCallStatic()
+    public function testCanCallStatic(): void
     {
         $result = SURBL::isListed('127.0.0.8', SURBL::LIST_PH | SURBL::LIST_MW | SURBL::LIST_ABUSE | SURBL::LIST_CR);
 
         $this->assertTrue($result);
     }
 
-    public function testUnlistedDomain()
+    public function testUnlistedDomain(): void
     {
         $surbl = new SURBL;
         $result = $surbl->listed('http://surbl.org/');
@@ -55,7 +56,7 @@ class SURBLTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($result);
     }
 
-    public function testNxDomain()
+    public function testNxDomain(): void
     {
         $surbl = new SURBL;
         $result = $surbl->listed('http://surbl-does-not-exist.org/');
@@ -63,7 +64,7 @@ class SURBLTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($result);
     }
 
-    public function testListedDomain()
+    public function testListedDomain(): void
     {
         $surbl = new SURBL;
         $result = $surbl->listed('http://surbl-org-permanent-test-point.com/');
@@ -71,7 +72,7 @@ class SURBLTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($result);
     }
 
-    public function testGracefulFailOnBadDomain()
+    public function testGracefulFailOnBadDomain(): void
     {
         $surbl = new SURBL;
         $result = $surbl->listed('not a valid URL');
@@ -79,7 +80,7 @@ class SURBLTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($result);
     }
 
-    public function testEmptyUrlReturnFalse()
+    public function testEmptyUrlReturnFalse(): void
     {
         $surbl = new SURBL;
         $result = $surbl->listed('');
